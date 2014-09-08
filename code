@@ -1,0 +1,87 @@
+package serHomework;
+
+import java.io.*;
+
+ class Human implements Cloneable, Serializable {
+       private String name;
+       private int age;
+       private String occupation;     
+       
+       public String getName() {
+             return name;
+       }
+       public void setName(String name) {
+             this.name = name;
+       }
+       public int getAge() {
+             return age;
+       }
+       public void setAge(int age) {
+             this.age = age;
+       }
+      
+       public Human clone() throws CloneNotSupportedException {
+             return (Human)super.clone();
+       }
+       public void setOccupation(String occupation){
+    	   this.occupation = occupation;
+       }
+       public String getOccupation(String occupation){
+    	   return occupation;
+       }       
+       
+       public void printInfo(){
+    	   System.out.println(getName());
+    	   System.out.println(getAge());
+    	   System.out.println(getOccupation(occupation));
+       	   System.out.println(hashCode()+"\n");
+       }
+       
+}
+
+public class Main {
+
+       public static void main(String[] args) throws Exception{
+   	           
+    	             Human human1 = new Human();
+    	             human1.setName("Jerry");
+     	             human1.setAge(25);
+    	             human1.setOccupation("interpreter");
+      	           
+    	             Human human2 = new Human();
+    	             human2.setName("Tom");
+     	             human2.setAge(15);
+    	             human2.setOccupation("artist");
+    	           
+    	             Human clone;
+    	             
+    	     		File fileHuman = new File("C://1//fileHuman.txt");
+    	            try {
+    	                   clone = human1.clone();
+            	           System.out.println("Human1 equals clone: "+clone.equals(human1));
+                           clone.printInfo();
+  	                  
+    	            } catch (CloneNotSupportedException e) {
+    	                   System.out.println("Объект не может быть клонированным.");
+    	            }
+    	            System.out.println("Human1 equals human2: "+human1.equals(human2));
+    	            human1.printInfo();
+    	            human2.printInfo();
+   
+       
+		try {
+
+			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileHuman));
+
+			os.writeObject(human1);
+
+			os.close();
+
+		} catch (IOException e) {
+
+			System.err.println(e);
+
+		}
+       
+} 
+}
